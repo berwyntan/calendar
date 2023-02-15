@@ -18,8 +18,8 @@ const useCalendarStore = create<CalendarState>()(
         setMonth: (data) => set({ month: data}),
         setYear: (data) => set({ year: data}),
         setToday: () => {
-            set({ month: dayjs().month()})
-            set({ year: dayjs().year()})
+          set({ month: dayjs().month()})
+          set({ year: dayjs().year()})
         },
         })    
     )
