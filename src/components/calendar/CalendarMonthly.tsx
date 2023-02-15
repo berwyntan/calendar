@@ -1,6 +1,7 @@
 import { dayOfWeek } from "../../constants/names"
 import dayjs from "dayjs"
-import { useState } from "react";
+import { ReactElement } from "react"
+import useCalendarStore from "../../store/useCalendarStore"
 
 interface DayBoxProps {
     day: number | undefined;
@@ -23,21 +24,21 @@ export const DayBox = ({ day, month }: DayBoxProps) => {
     )
 }
 
-interface CalendarMonthlyProps {
-    month: number | undefined;
-    year: number | undefined;
-}
 
-const CalendarMonthly = ({ month, year }: CalendarMonthlyProps) => {
+const CalendarMonthly = () => {
+
+    const month: number = useCalendarStore((state) => state.month) 
+    const year: number = useCalendarStore((state) => state.year) 
+
     // render Monday to Sunday
-    const days = dayOfWeek.map((day) => {
+    const days: ReactElement[] = dayOfWeek.map((day) => {
         return (
             <div className="w-28 h-8" key={day}>
                 {day}
             </div>
         )
     })
-    const current = dayjs(`${year}-${month}-1`) // current month
+    const current = dayjs(`${year}-${month+1}-1`) // current month
     const currentMonth = current.month() + 1 // ISO format
     const currentYear = current.year()
     const firstDayOfMonth = dayjs(`${currentYear}-${currentMonth}-1`)    
