@@ -2,28 +2,7 @@ import { dayOfWeek } from "../../constants/names"
 import dayjs from "dayjs"
 import { ReactElement } from "react"
 import useCalendarStore from "../../store/useCalendarStore"
-
-interface DayBoxProps {
-    day: number | undefined;
-    month: boolean | undefined;
-}
-
-export const DayBox = ({ day, month }: DayBoxProps) => {
-    return (
-        <>
-            <div className={`w-28 h-32 ${month && `font-bold`} border border-black`}>
-                {day}
-                <div 
-                    className="bg-white text-black mr-5 rounded cursor-pointer"
-                    
-                >
-                        Event
-                </div>
-            </div>            
-        </>
-    )
-}
-
+import DayBox from "./DayBox"
 
 const CalendarMonthly = () => {
 

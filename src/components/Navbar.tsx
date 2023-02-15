@@ -1,6 +1,5 @@
 import useCalendarStore from "../store/useCalendarStore"
 import { monthName } from "../constants/names"
-import { MouseEvent } from "react"
 
 const Navbar = () => {
 
@@ -8,9 +7,9 @@ const Navbar = () => {
     const year: number = useCalendarStore((state) => state.year) 
     const setMonth: (data: number) => void = useCalendarStore((state) => state.setMonth) 
     const setYear: (data: number) => void = useCalendarStore((state) => state.setYear) 
-    const setToday: () => void = useCalendarStore((state) => state.setToday)    
-    
-    const handlePrevMonth = (event: MouseEvent<HTMLElement>) => {        
+    const setToday: () => void = useCalendarStore((state) => state.setToday)
+
+    const handlePrevMonth: () => void = () => {        
         let newMonth = month - 1
         let newYear = year
         if (newMonth < 0) {
@@ -21,7 +20,7 @@ const Navbar = () => {
         setMonth(newMonth)                  
     }
 
-    const handleNextMonth = (event: MouseEvent<HTMLElement>) => {
+    const handleNextMonth: () => void = () => {
         let newMonth = month + 1
         let newYear = year
         if (newMonth > 11) {
@@ -32,10 +31,10 @@ const Navbar = () => {
         setMonth(newMonth)        
     }
 
-    const handleToday = (event: MouseEvent<HTMLElement>) => {
+    const handleToday: () => void = () => {
         setToday()
     }
-
+    
     return (
         <>
             <button onClick={handleToday}>Today</button>
