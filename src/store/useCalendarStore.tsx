@@ -8,6 +8,8 @@ interface CalendarState {
   setMonth: (data: number) => void
   setYear: (data: number) => void
   setToday: () => void
+  yearInSelector: number
+  setYearInSelector: (data: number) => void
 }
 
 const useCalendarStore = create<CalendarState>()(
@@ -21,6 +23,8 @@ const useCalendarStore = create<CalendarState>()(
           set({ month: dayjs().month()})
           set({ year: dayjs().year()})
         },
+        yearInSelector: dayjs().year(),
+        setYearInSelector: (data) => set({ yearInSelector: data}),
         })    
     )
 )
