@@ -9,16 +9,27 @@ const MonthSelector = () => {
     const setYear: (data: number) => void = useCalendarStore((state) => state.setYear) 
     const setYearInSelector: (data: number) => void = useCalendarStore((state) => state.setYearInSelector) 
 
+    const handleClickMonth = (e: React.MouseEvent<HTMLElement>) => {
+      let target = e.target as HTMLInputElement
+      const month = monthNameShort.findIndex(mon => mon === target.id)
+      setMonth(month)
+      setYear(yearInSelector)
+    }
+
     const monthRows = monthNameShort.map(month => {
       return (
         <div 
           id={month}
+          key={month}
           className="w-10"
-          onClick={(e) => {
-            console.log(e.target)
-            let target = e.target as HTMLInputElement
-            console.log(target.id)
-            }}>
+          // onClick={(e) => {
+            
+          //   let target = e.target as HTMLInputElement
+          //   const month = monthNameShort.findIndex(mon => mon === target.id)
+          //   setMonth(month)
+          //   setYear(yearInSelector)
+          //   }}>
+          onClick={(e) => {handleClickMonth(e)}}>
             {month}
           </div>
       )
@@ -40,12 +51,13 @@ const MonthSelector = () => {
               <span className="mx-1">{yearInSelector}</span>
               <button onClick={handlePrevYear}>Left</button>
               <button onClick={handleNextYear}>Right</button>            
+              <button onClick={handleClickMonth}>Test</button>            
             </div>
             <div className="flex flex-wrap">
               {monthRows}
             </div>
             <div>
-              Today is 
+              Today is ...
             </div>
         </div>
       </>
