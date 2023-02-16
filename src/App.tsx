@@ -12,22 +12,23 @@ function App() {
   // const j = Papa.parse(colab)
   // console.log(j)
   const { parseData } = useGetData()
-  const colabConfirm = parseData(colab)
+  const { data: colabConfirm } = parseData(colab)
   console.log(colabConfirm)
 
   let renderInfo = []
-  for (const booking of colabConfirm.data) {
+  // @ts-ignore
+  for (const booking of colabConfirm) {
     // @ts-ignore
-    const checkMonth = booking[2].split('-')[1]
-    const m = 11
+    const checkMonth = booking?.date.split('-')[1]
+    const m = 12 // to get store state
     // @ts-ignore
-    const checkYear = booking[2].split('-')[0]
-    const y = 2022
+    const checkYear = booking?.date.split('-')[0]
+    const y = 2022 // to get store state
     if (checkMonth === m.toString() && checkYear === y.toString()) {
       renderInfo.push(booking)
     }
   }
-  // console.log(renderInfo)
+  console.log(renderInfo)
   
 
   return (
