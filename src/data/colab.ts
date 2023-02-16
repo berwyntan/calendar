@@ -1,5 +1,4 @@
-const colab: string = `
-uuid,status,date,start_time,end_time,user_uuid,name,code,type
+const colab: string = `uuid,status,date,start_time,end_time,user_uuid,name,code,type
 e44aac85-db90-4a69-af25-dd965e13d97b,CONFIRMED,2022-11-01,10:30:00,12:30:00,e7f9a9c8-ac87-402a-8b01-eefa99f0920f,Meeting Room 6-1-1,HSO_COLAB_WD_Meeting Room 6-1-1,MEETING ROOM
 26caa27a-f878-4cf2-a54d-1866b7a625e5,CONFIRMED,2022-11-01,16:30:00,18:00:00,e7f9a9c8-ac87-402a-8b01-eefa99f0920f,Meeting Room 6-1-1,HSO_COLAB_WD_Meeting Room 6-1-1,MEETING ROOM
 3a9f8fc0-5446-48a1-9b36-a0bd16d6eb98,CONFIRMED,2022-11-02,14:30:00,15:00:00,705a6537-b8ea-4c4d-be6a-2a2174f2e5b5,Meeting Room 6-1-1,HSO_COLAB_WD_Meeting Room 6-1-1,MEETING ROOM
@@ -41,8 +40,6 @@ d30db0e5-a36c-4ada-be98-850257356cc7,CONFIRMED,2022-11-25,09:30:00,12:00:00,9096
 5cda0885-7172-4248-9cf4-79a828c1c4db,CONFIRMED,2022-11-30,14:00:00,15:30:00,39d36fa9-539b-48c7-9ff5-71bd46e600b6,Discussion Room 9-2-4,HSO_COLAB_WD_Discussion Room 9-2-4,DISCUSSION ROOM
 8b458aa5-04cd-4272-9f42-1a1ad91d854c,CONFIRMED,2022-12-07,09:00:00,10:30:00,39d36fa9-539b-48c7-9ff5-71bd46e600b6,Discussion Room 9-2-4,HSO_COLAB_WD_Discussion Room 9-2-4,DISCUSSION ROOM
 35f97d72-9fb6-418a-a9d8-64a33ff55291,CONFIRMED,2022-11-22,17:00:00,18:00:00,12602439-8716-47ba-b565-f72f77a430e3,Meeting Room 6-1-1,HSO_COLAB_WD_Meeting Room 6-1-1,MEETING ROOM
-e161719e-2e5c-4c39-b308-7bbe36c845cb,CONFIRMED,2022-12-07,14:00:00,15:30:00,39d36fa9-539b-48c7-9ff5-71bd46e600b6,Discussion Room 9-2-4,HSO_COLAB_WD_Discussion Room 9-2-4,DISCUSSION ROOM
-
-`
+e161719e-2e5c-4c39-b308-7bbe36c845cb,CONFIRMED,2022-12-07,14:00:00,15:30:00,39d36fa9-539b-48c7-9ff5-71bd46e600b6,Discussion Room 9-2-4,HSO_COLAB_WD_Discussion Room 9-2-4,DISCUSSION ROOM`
 
 export default colab

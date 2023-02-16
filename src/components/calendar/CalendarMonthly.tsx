@@ -31,18 +31,18 @@ const CalendarMonthly = () => {
 
     // push dates for next month
     for (let i=6-lastDayOfWeekMonth; i>0; i--) {
-        dateArray.push({i:i, currentMonth: false})
+        dateArray.push({i:i, currentMonth: false, events: []})
     }    
     // push dates for curr month
     for (let i=daysInCurrentMonth; i>0; i--) {
-        dateArray.push({i: i, currentMonth: true})
+        dateArray.push({i: i, currentMonth: true, events: []})
     }
     // push dates for prev month
     for (let i=firstDayOfWeekMonth; i>0; i--) {
         const d = daysInPrevMonth-firstDayOfWeekMonth+i
-        dateArray.push({i: d, currentMonth: false})        
+        dateArray.push({i: d, currentMonth: false, events: []})        
     }
-    
+    console.log(dateArray[0])
     // rows to render
     const rowsArray = []
 
