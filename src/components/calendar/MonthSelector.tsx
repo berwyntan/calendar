@@ -21,14 +21,7 @@ const MonthSelector = () => {
         <div 
           id={month}
           key={month}
-          className="w-10"
-          // onClick={(e) => {
-            
-          //   let target = e.target as HTMLInputElement
-          //   const month = monthNameShort.findIndex(mon => mon === target.id)
-          //   setMonth(month)
-          //   setYear(yearInSelector)
-          //   }}>
+          className="w-10 cursor-pointer"
           onClick={(e) => {handleClickMonth(e)}}>
             {month}
           </div>

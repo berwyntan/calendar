@@ -2,7 +2,10 @@ import React from 'react'
 
 const EventsList = () => {
   return (
-    <div>EventsList</div>
+    <>
+      <div>Calendars in View</div>
+    </>
+    
   )
 }
 
