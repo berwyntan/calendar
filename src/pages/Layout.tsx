@@ -9,10 +9,6 @@ import { useGetData } from '../hooks/useGetData'
 import useFilterBookings from "../hooks/useFilterBookings"
 import { bookingsType } from "../constants/types"
 
-interface data {
-    data: bookingsType[]
-}
-
 const Layout = () => {
     const month: number = useCalendarStore((state) => state.month) 
     const year: number = useCalendarStore((state) => state.year) 
@@ -22,7 +18,7 @@ const Layout = () => {
     
     
     const { parseConfirmedData, parseCancelledData } = useGetData()
-    const { data: confirmedBookings }: data = parseConfirmedData()
+    const { data: confirmedBookings } = parseConfirmedData()
     console.log(confirmedBookings)
     
     console.log(confirmedBookings)

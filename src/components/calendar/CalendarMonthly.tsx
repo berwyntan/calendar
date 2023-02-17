@@ -2,6 +2,7 @@ import { dayOfWeek } from "../../constants/names"
 import dayjs from "dayjs"
 import { ReactElement } from "react"
 import useCalendarStore from "../../store/useCalendarStore"
+import useFilterBookings from "../../hooks/useFilterBookings"
 import DayBox from "./DayBox"
 import { bookingsType } from "../../constants/types"
 
@@ -14,6 +15,8 @@ const CalendarMonthly = ({ confirmedBookings }: CalendarMonthlyProps) => {
     console.log('test', confirmedBookings)
     const month: number = useCalendarStore((state) => state.month) 
     const year: number = useCalendarStore((state) => state.year) 
+
+    const { filterByCurrentMonth, filterByNextMonth, filterByPrevMonth, filterByDay } = useFilterBookings()
 
     // render Monday to Sunday
     const days: ReactElement[] = dayOfWeek.map((day) => {
@@ -37,18 +40,33 @@ const CalendarMonthly = ({ confirmedBookings }: CalendarMonthlyProps) => {
 
     // push dates for next month
     for (let i=6-lastDayOfWeekMonth; i>0; i--) {
-        dateArray.push({i:i, currentMonth: false, events: []})
+        // get bookings for next month
+        const { renderInfo } = filterByNextMonth(confirmedBookings)
+        // filter bookings by day
+        const { renderInfo: dayInfo } = filterByDay(renderInfo, i)
+        // push into array
+        dateArray.push({i:i, currentMonth: false, events: dayInfo})
     }    
     // push dates for curr month
     for (let i=daysInCurrentMonth; i>0; i--) {
-        dateArray.push({i: i, currentMonth: true, events: []})
+        // get bookings for the month
+        const { renderInfo } = filterByCurrentMonth(confirmedBookings)
+        // filter bookings by day
+        const { renderInfo: dayInfo } = filterByDay(renderInfo, i)
+        // push into array
+        dateArray.push({i: i, currentMonth: true, events: dayInfo})
     }
     // push dates for prev month
     for (let i=firstDayOfWeekMonth; i>0; i--) {
+        // get bookings for the month
+        const { renderInfo } = filterByPrevMonth(confirmedBookings)
+        // filter bookings by day
         const d = daysInPrevMonth-firstDayOfWeekMonth+i
-        dateArray.push({i: d, currentMonth: false, events: []})        
+        const { renderInfo: dayInfo } = filterByDay(renderInfo, d)
+        // push into array
+        dateArray.push({i: d, currentMonth: false, events: dayInfo})        
     }
-    console.log(dateArray[0])
+    console.log(dateArray)
     // rows to render
     const rowsArray = []
 
@@ -69,6 +87,7 @@ const CalendarMonthly = ({ confirmedBookings }: CalendarMonthlyProps) => {
                             <DayBox 
                                 day={day?.i} 
                                 month={day?.currentMonth}
+                                events={day?.events}
                                 key={j}
                                 />
                         )
