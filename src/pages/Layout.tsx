@@ -3,39 +3,40 @@ import MonthSelector from "../components/calendar/MonthSelector"
 import CalendarMonthly from "../components/calendar/CalendarMonthly"
 import EventsList from "../components/events/EventsList"
 import useCalendarStore from "../store/useCalendarStore"
+import colab from '../data/colab'
+import xcolab from '../data/xcolab'
+import { useGetData } from '../hooks/useGetData'
+import useFilterBookings from "../hooks/useFilterBookings"
+import { bookingsType } from "../constants/types"
+
+interface data {
+    data: bookingsType[]
+}
 
 const Layout = () => {
     const month: number = useCalendarStore((state) => state.month) 
     const year: number = useCalendarStore((state) => state.year) 
     const setMonth: (data: number) => void = useCalendarStore((state) => state.setMonth) 
     const setYear: (data: number) => void = useCalendarStore((state) => state.setYear) 
-    const setToday: () => void = useCalendarStore((state) => state.setToday)    
+    const setToday: () => void = useCalendarStore((state) => state.setToday)
     
-    // const handlePrevMonth: () => void = () => {        
-    //     let newMonth = month - 1
-    //     let newYear = year
-    //     if (newMonth < 0) {
-    //         newMonth = 11
-    //         newYear -= 1
-    //         setYear(newYear)
-    //     }
-    //     setMonth(newMonth)                  
-    // }
+    
+    const { parseConfirmedData, parseCancelledData } = useGetData()
+    const { data: confirmedBookings }: data = parseConfirmedData()
+    console.log(confirmedBookings)
+    
+    console.log(confirmedBookings)
+    const { data: cancelledBookings } = parseCancelledData()
+    console.log(cancelledBookings)
 
-    // const handleNextMonth: () => void = () => {
-    //     let newMonth = month + 1
-    //     let newYear = year
-    //     if (newMonth > 11) {
-    //         newMonth = 0
-    //         newYear += 1
-    //         setYear(newYear)
-    //     }
-    //     setMonth(newMonth)        
-    // }
+    // const { filterByCurrentMonth, filterByDay } = useFilterBookings()
+    // // @ts-ignore
+    // const {renderInfo} = filterByCurrentMonth(colabConfirm)
 
-    // const handleToday: () => void = () => {
-    //     setToday()
-    // }
+    // console.log(renderInfo)
+
+    // const {renderInfo: dayInfo} = filterByDay(renderInfo, 1)
+    // console.log(dayInfo)
     
     return (
         <>
@@ -48,7 +49,9 @@ const Layout = () => {
                         <MonthSelector />
                         <EventsList />
                     </div>                    
-                    <CalendarMonthly />
+                    <CalendarMonthly 
+                        confirmedBookings={confirmedBookings}
+                    />
                 </div>
             </div>
             

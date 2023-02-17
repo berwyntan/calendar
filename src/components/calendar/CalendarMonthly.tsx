@@ -3,9 +3,15 @@ import dayjs from "dayjs"
 import { ReactElement } from "react"
 import useCalendarStore from "../../store/useCalendarStore"
 import DayBox from "./DayBox"
+import { bookingsType } from "../../constants/types"
 
-const CalendarMonthly = () => {
+interface CalendarMonthlyProps {
+    confirmedBookings: bookingsType[]
+}
 
+const CalendarMonthly = ({ confirmedBookings }: CalendarMonthlyProps) => {
+
+    console.log('test', confirmedBookings)
     const month: number = useCalendarStore((state) => state.month) 
     const year: number = useCalendarStore((state) => state.year) 
 

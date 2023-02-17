@@ -10,6 +10,8 @@ interface CalendarState {
   setToday: () => void
   yearInSelector: number
   setYearInSelector: (data: number) => void
+  // confirmedBookings: bookingsType[]
+  // setConfirmedBookings: (data: bookingsType[]) => void
 }
 
 const useCalendarStore = create<CalendarState>()(
@@ -25,6 +27,10 @@ const useCalendarStore = create<CalendarState>()(
         },
         yearInSelector: dayjs().year(),
         setYearInSelector: (data) => set({ yearInSelector: data}),
+        // confirmedBookings: [],
+        // setConfirmedBookings: (data) => set({ confirmedBookings: data }),
+        // cancelledBookings: [],
+        // setCancelledBookings: (data) => set({ cancelledBookings: data }),
         })    
     )
 )

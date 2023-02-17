@@ -7,28 +7,28 @@ import xcolab from './data/xcolab'
 import { useGetData } from './hooks/useGetData'
 
 function App() {
-  const month = useCalendarStore((state) => state.month)
+  
   
   // const j = Papa.parse(colab)
   // console.log(j)
-  const { parseData } = useGetData()
-  const { data: colabConfirm } = parseData(colab)
-  console.log(colabConfirm)
+  // const { parseData } = useGetData()
+  // const { data: colabConfirm } = parseData(colab)
+  // console.log(colabConfirm)
 
-  let renderInfo = []
-  // @ts-ignore
-  for (const booking of colabConfirm) {
-    // @ts-ignore
-    const checkMonth = booking?.date.split('-')[1]
-    const m = 12 // to get store state
-    // @ts-ignore
-    const checkYear = booking?.date.split('-')[0]
-    const y = 2022 // to get store state
-    if (checkMonth === m.toString() && checkYear === y.toString()) {
-      renderInfo.push(booking)
-    }
-  }
-  console.log(renderInfo)
+  // let renderInfo = []
+  // // @ts-ignore
+  // for (const booking of colabConfirm) {
+  //   // @ts-ignore
+  //   const checkMonth = booking?.date.split('-')[1]
+  //   const m = 12 // to get store state
+  //   // @ts-ignore
+  //   const checkYear = booking?.date.split('-')[0]
+  //   const y = 2022 // to get store state
+  //   if (checkMonth === m.toString() && checkYear === y.toString()) {
+  //     renderInfo.push(booking)
+  //   }
+  // }
+  // console.log(renderInfo)
   
 
   return (
