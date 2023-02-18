@@ -10,19 +10,17 @@ const DayBox = ({ day, month, events }: DayBoxProps) => {
     // console.log(events)
     const eventCards = events?.map(ev => {
         return (
-            <p className="text-xs truncate cursor-pointer">
+            <div className="text-xs truncate cursor-pointer"
+                key={ev.uuid}>
                 {`${ev.start_time} ${ev.code}`}
-            </p>
+            </div>
         )
     })
     return (
         <>
             <div className={`w-28 h-32 ${month && `font-bold`} border border-black`}>
                 {day}
-                <div 
-                    className="bg-white text-black mr-5 rounded"
-                    
-                >
+                <div className="bg-white text-black mr-5 rounded">
                       {eventCards}  
                 </div>
             </div>            

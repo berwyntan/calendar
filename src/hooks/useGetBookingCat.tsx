@@ -1,5 +1,5 @@
 import useCalendarStore from "../store/useCalendarStore"
-import { statusType } from "../constants/types"
+import { statusType, roomType } from "../constants/types"
 
 const useGetBookingCat = () => {
 
@@ -23,34 +23,47 @@ const useGetBookingCat = () => {
         }
         const status: statusType[] = []
         for (const item of statusSet) {
-            status.push({
-                name: item,
-                visible: true
-            })
+            if (item !== 'CANCELLED') {
+                status.push({
+                    name: item,
+                    visible: true
+                })
+            } else {
+                status.push({
+                    name: item,
+                    visible: false
+                })
+            }
         }
         return { status }
     }
 
     // type
-    const getTypeCat = () => {
-        const typeSet: Set<string> = new Set()
+    const getRoomCat = () => {
+        const roomSet: Set<string> = new Set()
         for (const booking of confirmedBookings) {
-            if (!typeSet.has(booking.type)) {
-                typeSet.add(booking.type)
+            if (!roomSet.has(booking.type)) {
+                roomSet.add(booking.type)
             }
         }
         for (const booking of cancelledBookings) {
-            if (!typeSet.has(booking.type)) {
-                typeSet.add(booking.type)
+            if (!roomSet.has(booking.type)) {
+                roomSet.add(booking.type)
             }
         }
-        const type = Array.from(typeSet)
-        return { type }
+        const room: roomType[] = []
+        for (const item of roomSet) {
+            room.push({
+                name: item,
+                visible: true
+            })
+        }
+        return { room }
     }
 
     // brand (only brand needs to hardcode the brand names COLAB & ITCD)
     
-    return { getStatusCat, getTypeCat }
+    return { getStatusCat, getRoomCat }
     
 }
 

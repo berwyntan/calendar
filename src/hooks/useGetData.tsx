@@ -31,7 +31,21 @@ export const useGetData = () => {
         
         return { data }
     }
+    const parseAllData = () => {
+        // csv to array
+        const { data: c0 } = Papa.parse(colab, { header: true }) as dataType      
+        
+        const { data: i0 } = Papa.parse(itcd, { header: true }) as dataType
+
+        const { data: c1 } = Papa.parse(xcolab, { header: true }) as dataType     
+               
+        const { data: i1 } = Papa.parse(xitcd, { header: true }) as dataType
+
+        const data = [...c0, ...i0, ...c1, ...i1]
+        
+        return { data }
+    }
     
-    return { parseConfirmedData, parseCancelledData }
+    return { parseConfirmedData, parseCancelledData, parseAllData }
 }
 

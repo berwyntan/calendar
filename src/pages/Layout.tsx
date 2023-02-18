@@ -14,7 +14,7 @@ const Layout = () => {
     const setConfirmedBookings = useCalendarStore((state) => state.setConfirmedBookings)
     const setCancelledBookings = useCalendarStore((state) => state.setCancelledBookings)
     const setStatus = useCalendarStore((state) => state.setStatus)
-    const setType = useCalendarStore((state) => state.setType)
+    const setRoom = useCalendarStore((state) => state.setRoom)
 
     const { parseConfirmedData, parseCancelledData } = useGetData()
     const { data: confirmedBookings } = parseConfirmedData()
@@ -23,11 +23,11 @@ const Layout = () => {
     const { data: cancelledBookings } = parseCancelledData()
     setCancelledBookings(cancelledBookings)
 
-    const { getStatusCat, getTypeCat } = useGetBookingCat()
+    const { getStatusCat, getRoomCat } = useGetBookingCat()
     const { status } = getStatusCat()
     setStatus(status)
-    const { type } = getTypeCat()
-    setType(type)
+    const { room } = getRoomCat()
+    setRoom(room)
     
     return (
         <>

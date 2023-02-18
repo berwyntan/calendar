@@ -1,9 +1,10 @@
 import useCalendarStore from "../store/useCalendarStore"
-import { bookingsType } from "../constants/types"
+import { bookingsType, statusType } from "../constants/types"
 
 const useFilterBookings = () => {
-  const month: number = useCalendarStore((state) => state.month) 
-  const year: number = useCalendarStore((state) => state.year) 
+  const month = useCalendarStore((state) => state.month) 
+  const year = useCalendarStore((state) => state.year) 
+  const status = useCalendarStore((state) => state.status) 
 
   // filter by current month year
   const filterByCurrentMonth = (unfiltered: bookingsType[]) => {
@@ -87,12 +88,21 @@ const useFilterBookings = () => {
   }
 
   // filter by status
-  const filterByStatus = (unfiltered: bookingsType[], status: string) => {
+  const filterByStatus = (unfiltered: bookingsType[]) => {
     let renderInfo: bookingsType[] = []
+    const statusToRender: string[] = []
     
+    for (const stat of status) {
+      if (stat.visible) {
+        statusToRender.push(stat.name)
+      }
+    }
+
     for (const booking of unfiltered) {
-      if (booking.status === status) {
-        renderInfo.push(booking)
+      for (const stat of statusToRender) {
+        if (booking.status === stat) {
+          renderInfo.push(booking)
+        }
       }
     }
     return { renderInfo }

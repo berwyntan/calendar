@@ -1,46 +1,66 @@
 import useCalendarStore from "../../store/useCalendarStore"
 import { useState } from "react"
 import useFilterBookings from "../../hooks/useFilterBookings"
+import { statusType } from "../../constants/types"
 
 const EventsList = () => {
   const status = useCalendarStore((state) => state.status)
-  const type = useCalendarStore((state) => state.type)
+  const setStatus = useCalendarStore((state) => state.setStatus)
+  const room = useCalendarStore((state) => state.room)
   const { filterByStatus } = useFilterBookings()
+
+  const updateStatus = (name: string) => {
+    const updateStatus: statusType[] = []
+    for (const stat of status) {
+      if (stat.name === name) {
+        updateStatus.push({
+          name: stat.name,
+          visible: !stat.visible
+        })
+      } else updateStatus.push(stat)
+    }
+    setStatus(updateStatus)
+  }
   
   const statusCards = status.map(cat => {
-    const [ check, setCheck ] = useState(false)
-    const handleCheck = () => {
+    const [ check, setCheck ] = useState(cat.visible)
+    const handleCheck = (name: string) => {
       if (!check) {
-        console.log('check')
+        console.log('check', name)
+      } else {
+        console.log('uncheck', name)
       }
       setCheck(prev => !prev)
+      updateStatus(name)
     }
     return (
       <>
-      <div>
+      <div key={cat.name}>
         {cat.name}
       </div>
       <input type="checkbox" checked={check} 
-        className="checkbox" onChange={handleCheck}/>
+        className="checkbox" onChange={() => handleCheck(cat.name)}/>
       </>
     )
   })
 
-  const typeCards = type.map(cat => {
-    const [ check, setCheck ] = useState(false)
-    const handleCheck = () => {
+  const roomCards = room.map(cat => {
+    const [ check, setCheck ] = useState(cat.visible)
+    const handleCheck = (name: string) => {
       if (!check) {
-        console.log('check')
+        console.log('check', name)
+      } else {
+        console.log('uncheck', name)
       }
       setCheck(prev => !prev)
     }
     return (
       <>
-      <div>
-        {cat}
+      <div key={cat.name}>
+        {cat.name}
       </div>
       <input type="checkbox" checked={check} 
-        className="checkbox" onChange={handleCheck}/>
+        className="checkbox" onChange={() => handleCheck(cat.name)}/>
       </>
     )
   })
@@ -52,7 +72,7 @@ const EventsList = () => {
         <span>Status</span>
         {statusCards}
         <span>Type</span>
-        {typeCards}
+        {roomCards}
       </div>
     </>
     

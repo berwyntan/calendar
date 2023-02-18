@@ -14,3 +14,8 @@ export interface statusType {
   name: string
   visible: boolean
 }
+
+export interface roomType {
+  name: string
+  visible: boolean
+}
