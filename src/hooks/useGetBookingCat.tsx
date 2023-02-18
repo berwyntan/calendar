@@ -1,4 +1,5 @@
 import useCalendarStore from "../store/useCalendarStore"
+import { statusType } from "../constants/types"
 
 const useGetBookingCat = () => {
 
@@ -20,7 +21,13 @@ const useGetBookingCat = () => {
                 statusSet.add(booking.status)
             }
         }
-        const status = Array.from(statusSet)
+        const status: statusType[] = []
+        for (const item of statusSet) {
+            status.push({
+                name: item,
+                visible: true
+            })
+        }
         return { status }
     }
 

@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import dayjs from "dayjs"
-import { bookingsType } from '../constants/types'
+import { bookingsType, statusType } from '../constants/types'
 
 interface CalendarState {
   month: number
@@ -15,8 +15,8 @@ interface CalendarState {
   setConfirmedBookings: (data: bookingsType[]) => void
   cancelledBookings: bookingsType[]
   setCancelledBookings: (data: bookingsType[]) => void
-  status: string[]
-  setStatus: (data: string[]) => void
+  status: statusType[]
+  setStatus: (data: statusType[]) => void
   type: string[]
   setType: (data: string[]) => void
 }

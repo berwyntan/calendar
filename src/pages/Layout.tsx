@@ -14,6 +14,7 @@ const Layout = () => {
     const setConfirmedBookings = useCalendarStore((state) => state.setConfirmedBookings)
     const setCancelledBookings = useCalendarStore((state) => state.setCancelledBookings)
     const setStatus = useCalendarStore((state) => state.setStatus)
+    const setType = useCalendarStore((state) => state.setType)
 
     const { parseConfirmedData, parseCancelledData } = useGetData()
     const { data: confirmedBookings } = parseConfirmedData()
@@ -24,17 +25,9 @@ const Layout = () => {
 
     const { getStatusCat, getTypeCat } = useGetBookingCat()
     const { status } = getStatusCat()
-    const { type } = getTypeCat()
-    console.log(type)
     setStatus(status)
-    // const { filterByCurrentMonth, filterByDay } = useFilterBookings()
-    // // @ts-ignore
-    // const {renderInfo} = filterByCurrentMonth(colabConfirm)
-
-    // console.log(renderInfo)
-
-    // const {renderInfo: dayInfo} = filterByDay(renderInfo, 1)
-    // console.log(dayInfo)
+    const { type } = getTypeCat()
+    setType(type)
     
     return (
         <>

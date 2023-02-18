@@ -9,3 +9,8 @@ export interface bookingsType {
     user_uuid: string
     uuid: string
   }
+
+export interface statusType {
+  name: string
+  visible: boolean
+}
