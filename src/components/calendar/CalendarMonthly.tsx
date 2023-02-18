@@ -4,18 +4,15 @@ import { ReactElement } from "react"
 import useCalendarStore from "../../store/useCalendarStore"
 import useFilterBookings from "../../hooks/useFilterBookings"
 import DayBox from "./DayBox"
-import { bookingsType } from "../../constants/types"
 
-interface CalendarMonthlyProps {
-    confirmedBookings: bookingsType[]
-}
 
-const CalendarMonthly = ({ confirmedBookings }: CalendarMonthlyProps) => {
+const CalendarMonthly = () => {
 
-    console.log('test', confirmedBookings)
-    const month: number = useCalendarStore((state) => state.month) 
-    const year: number = useCalendarStore((state) => state.year) 
-
+    const month = useCalendarStore((state) => state.month) 
+    const year = useCalendarStore((state) => state.year) 
+    const confirmedBookings = useCalendarStore((state) => state.confirmedBookings) 
+    const cancelledBookings = useCalendarStore((state) => state.cancelledBookings) 
+    
     const { filterByCurrentMonth, filterByNextMonth, filterByPrevMonth, filterByDay } = useFilterBookings()
 
     // render Monday to Sunday

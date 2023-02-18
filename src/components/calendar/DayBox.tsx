@@ -7,7 +7,7 @@ export interface DayBoxProps {
 }
 
 const DayBox = ({ day, month, events }: DayBoxProps) => {
-    console.log(events)
+    // console.log(events)
     const eventCards = events?.map(ev => {
         return (
             <p className="text-xs truncate cursor-pointer">

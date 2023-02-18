@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import dayjs from "dayjs"
+import { bookingsType } from '../constants/types'
 
 interface CalendarState {
   month: number
@@ -10,8 +11,14 @@ interface CalendarState {
   setToday: () => void
   yearInSelector: number
   setYearInSelector: (data: number) => void
-  // confirmedBookings: bookingsType[]
-  // setConfirmedBookings: (data: bookingsType[]) => void
+  confirmedBookings: bookingsType[]
+  setConfirmedBookings: (data: bookingsType[]) => void
+  cancelledBookings: bookingsType[]
+  setCancelledBookings: (data: bookingsType[]) => void
+  status: string[]
+  setStatus: (data: string[]) => void
+  type: string[]
+  setType: (data: string[]) => void
 }
 
 const useCalendarStore = create<CalendarState>()(
@@ -27,10 +34,14 @@ const useCalendarStore = create<CalendarState>()(
         },
         yearInSelector: dayjs().year(),
         setYearInSelector: (data) => set({ yearInSelector: data}),
-        // confirmedBookings: [],
-        // setConfirmedBookings: (data) => set({ confirmedBookings: data }),
-        // cancelledBookings: [],
-        // setCancelledBookings: (data) => set({ cancelledBookings: data }),
+        confirmedBookings: [],
+        setConfirmedBookings: (data) => set({ confirmedBookings: data }),
+        cancelledBookings: [],
+        setCancelledBookings: (data) => set({ cancelledBookings: data }),
+        status: [],
+        setStatus: (data) => set({ status: data }),
+        type: [],
+        setType: (data) => set({ type: data })
         })    
     )
 )

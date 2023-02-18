@@ -3,28 +3,30 @@ import MonthSelector from "../components/calendar/MonthSelector"
 import CalendarMonthly from "../components/calendar/CalendarMonthly"
 import EventsList from "../components/events/EventsList"
 import useCalendarStore from "../store/useCalendarStore"
-import colab from '../data/colab'
-import xcolab from '../data/xcolab'
+
 import { useGetData } from '../hooks/useGetData'
 import useFilterBookings from "../hooks/useFilterBookings"
 import { bookingsType } from "../constants/types"
+import useGetBookingCat from "../hooks/useGetBookingCat"
 
 const Layout = () => {
-    const month: number = useCalendarStore((state) => state.month) 
-    const year: number = useCalendarStore((state) => state.year) 
-    const setMonth: (data: number) => void = useCalendarStore((state) => state.setMonth) 
-    const setYear: (data: number) => void = useCalendarStore((state) => state.setYear) 
-    const setToday: () => void = useCalendarStore((state) => state.setToday)
     
-    
+    const setConfirmedBookings = useCalendarStore((state) => state.setConfirmedBookings)
+    const setCancelledBookings = useCalendarStore((state) => state.setCancelledBookings)
+    const setStatus = useCalendarStore((state) => state.setStatus)
+
     const { parseConfirmedData, parseCancelledData } = useGetData()
     const { data: confirmedBookings } = parseConfirmedData()
-    console.log(confirmedBookings)
+    setConfirmedBookings(confirmedBookings)
     
-    console.log(confirmedBookings)
     const { data: cancelledBookings } = parseCancelledData()
-    console.log(cancelledBookings)
+    setCancelledBookings(cancelledBookings)
 
+    const { getStatusCat, getTypeCat } = useGetBookingCat()
+    const { status } = getStatusCat()
+    const { type } = getTypeCat()
+    console.log(type)
+    setStatus(status)
     // const { filterByCurrentMonth, filterByDay } = useFilterBookings()
     // // @ts-ignore
     // const {renderInfo} = filterByCurrentMonth(colabConfirm)
@@ -45,9 +47,7 @@ const Layout = () => {
                         <MonthSelector />
                         <EventsList />
                     </div>                    
-                    <CalendarMonthly 
-                        confirmedBookings={confirmedBookings}
-                    />
+                    <CalendarMonthly />
                 </div>
             </div>
             

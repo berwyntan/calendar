@@ -23,9 +23,9 @@ export const useGetData = () => {
     }
     const parseCancelledData = () => {
         // csv to array
-        const { data: c1 } = Papa.parse(xcolab, { header: true })        
+        const { data: c1 } = Papa.parse(xcolab, { header: true }) as dataType     
                
-        const { data: i1 } = Papa.parse(xitcd, { header: true })   
+        const { data: i1 } = Papa.parse(xitcd, { header: true }) as dataType
 
         const data = [...c1, ...i1]
         
