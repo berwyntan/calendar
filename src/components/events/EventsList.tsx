@@ -1,13 +1,14 @@
 import useCalendarStore from "../../store/useCalendarStore"
 import { useState } from "react"
 import useFilterBookings from "../../hooks/useFilterBookings"
-import { statusType } from "../../constants/types"
+import { statusType, roomType } from "../../constants/types"
 
 const EventsList = () => {
   const status = useCalendarStore((state) => state.status)
   const setStatus = useCalendarStore((state) => state.setStatus)
   const room = useCalendarStore((state) => state.room)
-  const { filterByStatus } = useFilterBookings()
+  const setRoom = useCalendarStore((state) => state.setRoom)
+  // const { filterByStatus } = useFilterBookings()
 
   const updateStatus = (name: string) => {
     const updateStatus: statusType[] = []
@@ -44,6 +45,19 @@ const EventsList = () => {
     )
   })
 
+  const updateRoom = (name: string) => {
+    const updateRoom: roomType[] = []
+    for (const r of room) {
+      if (r.name === name) {
+        updateRoom.push({
+          name: r.name,
+          visible: !r.visible
+        })
+      } else updateRoom.push(r)
+    }
+    setRoom(updateRoom)
+  }
+
   const roomCards = room.map(cat => {
     const [ check, setCheck ] = useState(cat.visible)
     const handleCheck = (name: string) => {
@@ -53,6 +67,7 @@ const EventsList = () => {
         console.log('uncheck', name)
       }
       setCheck(prev => !prev)
+      updateRoom(name)
     }
     return (
       <>

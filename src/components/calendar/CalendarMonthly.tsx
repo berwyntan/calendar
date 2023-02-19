@@ -15,7 +15,7 @@ const CalendarMonthly = () => {
     const allBookings = [...confirmedBookings, ...cancelledBookings]
     
     const { filterByCurrentMonth, filterByNextMonth, filterByPrevMonth, filterByDay,
-        filterByStatus } = useFilterBookings()
+        filterByStatus, filterByRoom } = useFilterBookings()
 
     // render Monday to Sunday
     const days: ReactElement[] = dayOfWeek.map((day) => {
@@ -45,8 +45,10 @@ const CalendarMonthly = () => {
         const { renderInfo: dayInfo } = filterByDay(renderInfo, i)
         // filter by status
         const { renderInfo: dayInfoV1 } = filterByStatus(dayInfo)
+        // filter by room
+        const { renderInfo: dayInfoV2 } = filterByRoom(dayInfoV1)
         // push into array
-        dateArray.push({i:i, currentMonth: false, events: dayInfoV1})
+        dateArray.push({i:i, currentMonth: false, events: dayInfoV2})
     }    
     // push dates for curr month
     for (let i=daysInCurrentMonth; i>0; i--) {
@@ -56,8 +58,10 @@ const CalendarMonthly = () => {
         const { renderInfo: dayInfo } = filterByDay(renderInfo, i)
         // filter by status
         const { renderInfo: dayInfoV1 } = filterByStatus(dayInfo)
+        // filter by room
+        const { renderInfo: dayInfoV2 } = filterByRoom(dayInfoV1)
         // push into array
-        dateArray.push({i: i, currentMonth: true, events: dayInfoV1})
+        dateArray.push({i: i, currentMonth: true, events: dayInfoV2})
     }
     // push dates for prev month
     for (let i=firstDayOfWeekMonth; i>0; i--) {
@@ -68,8 +72,10 @@ const CalendarMonthly = () => {
         const { renderInfo: dayInfo } = filterByDay(renderInfo, d)
         // filter by status
         const { renderInfo: dayInfoV1 } = filterByStatus(dayInfo)
+        // filter by room
+        const { renderInfo: dayInfoV2 } = filterByRoom(dayInfoV1)
         // push into array
-        dateArray.push({i: d, currentMonth: false, events: dayInfoV1})        
+        dateArray.push({i: d, currentMonth: false, events: dayInfoV2})        
     }
     // console.log(dateArray)
     // rows to render
@@ -88,11 +94,14 @@ const CalendarMonthly = () => {
             <div className="flex" key={i}>
                 {
                     row.map((day, j) => {
+                        // console.log(i, j)
+                        const coord = '' + i + j
                         return (
                             <DayBox 
                                 day={day?.i} 
                                 month={day?.currentMonth}
                                 events={day?.events}
+                                coord={coord}
                                 key={j}
                                 />
                         )

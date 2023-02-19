@@ -5,6 +5,7 @@ const useFilterBookings = () => {
   const month = useCalendarStore((state) => state.month) 
   const year = useCalendarStore((state) => state.year) 
   const status = useCalendarStore((state) => state.status) 
+  const room = useCalendarStore((state) => state.room) 
 
   // filter by current month year
   const filterByCurrentMonth = (unfiltered: bookingsType[]) => {
@@ -109,10 +110,29 @@ const useFilterBookings = () => {
   }
 
   // filter by room type
+  const filterByRoom = (unfiltered: bookingsType[]) => {
+    let renderInfo: bookingsType[] = []
+    const roomToRender: string[] = []
+    
+    for (const r of room) {
+      if (r.visible) {
+        roomToRender.push(r.name)
+      }
+    }
+
+    for (const booking of unfiltered) {
+      for (const room of roomToRender) {
+        if (booking.type === room) {
+          renderInfo.push(booking)
+        }
+      }
+    }
+    return { renderInfo }
+  }
 
   return {
     filterByCurrentMonth, filterByNextMonth, filterByPrevMonth, filterByDay,
-    filterByStatus
+    filterByStatus, filterByRoom
   }
 }
 
