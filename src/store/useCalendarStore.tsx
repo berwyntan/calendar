@@ -41,7 +41,7 @@ const useCalendarStore = create<CalendarState>()(
         status: [],
         setStatus: (data) => set({ status: data }),
         room: [],
-        setRoom: (data) => set({ room: data })
+        setRoom: (data) => set({ room: data }),
         })    
     )
 )
