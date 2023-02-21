@@ -20,11 +20,13 @@ const CalendarMonthly = () => {
     // render Monday to Sunday
     const days: ReactElement[] = dayOfWeek.map((day) => {
         return (
-            <div className="w-28 h-8" key={day}>
+            <div className="flex flex-grow w-16 ml-4" key={day}>
                 {day}
             </div>
         )
     })
+
+    // calculation for dateArray
     const current = dayjs(`${year}-${month+1}-1`) // current month
     const currentMonth = current.month() + 1 // ISO format
     const currentYear = current.year()
@@ -78,7 +80,7 @@ const CalendarMonthly = () => {
         dateArray.push({i: d, currentMonth: false, events: dayInfoV2})        
     }
     // console.log(dateArray)
-    // rows to render
+    // rows to render - 1 row per week based on calendar
     const rowsArray = []
 
     while (dateArray.length > 0) {
@@ -89,6 +91,7 @@ const CalendarMonthly = () => {
         rowsArray.push(row)
     }
     
+    // arrange dates
     const rowsRender = rowsArray.map((row, i) => {
         return (
             <div className="flex" key={i}>
@@ -113,11 +116,11 @@ const CalendarMonthly = () => {
 
     return (
         <>
-            <div className="flex flex-col">
+            <div className="flex flex-col flex-grow p-2">
                 <div className="flex">
                     {days}
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col flex-grow justify-evenly">
                     {rowsRender}
                 </div>
 
