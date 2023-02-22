@@ -33,13 +33,13 @@ const EventsList = () => {
       updateStatus(name)
     }
     return (
-      <>
       <div key={cat.name}>
+      <div>
         {cat.name}
       </div>
       <input type="checkbox" checked={check} 
         className="checkbox" onChange={() => handleCheck(cat.name)}/>
-      </>
+      </div>
     )
   })
 
@@ -68,20 +68,20 @@ const EventsList = () => {
       updateRoom(name)
     }
     return (
-      <>
       <div key={cat.name}>
+      <div>
         {cat.name}
       </div>
       <input type="checkbox" checked={check} 
         className="checkbox" onChange={() => handleCheck(cat.name)}/>
-      </>
+      </div>
     )
   })
 
   return (
     <>
-      <div>Calendars</div>
-      <div className="flex flex-col">
+      <div className="my-2 ml-4 text-lg">Calendars</div>
+      <div className="flex flex-col ml-2">
         <span>Status</span>
         {statusCards}
         <span>Type</span>

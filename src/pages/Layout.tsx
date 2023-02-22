@@ -5,9 +5,8 @@ import EventsList from "../components/events/EventsList"
 import useCalendarStore from "../store/useCalendarStore"
 
 import { useGetData } from '../hooks/useGetData'
-import useFilterBookings from "../hooks/useFilterBookings"
-import { bookingsType } from "../constants/types"
 import useGetBookingCat from "../hooks/useGetBookingCat"
+
 
 const Layout = () => {
     
@@ -28,7 +27,7 @@ const Layout = () => {
     setStatus(status)
     const { room } = getRoomCat()
     setRoom(room)
-    
+
     return (
         <>
             <div className="flex flex-col">

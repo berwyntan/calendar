@@ -21,7 +21,7 @@ const MonthSelector = () => {
         <div 
           id={month}
           key={month}
-          className="w-10 cursor-pointer"
+          className="w-8 ml-1 mt-1 cursor-pointer"
           onClick={(e) => {handleClickMonth(e)}}>
             {month}
           </div>
@@ -38,18 +38,19 @@ const MonthSelector = () => {
 
     return (
       <>
-        <div className="flex flex-col w-28">
-            <div className="flex flex-wrap">
+        <div className="flex flex-col w-36 mt-5 items-center">
+            <div className="flex p-1">
               {/* <span className="mx-1">{monthNameShort[month]}</span> */}
-              <span className="mx-1">{yearInSelector}</span>
               <button onClick={handlePrevYear}>Left</button>
-              <button onClick={handleNextYear}>Right</button>            
-              <button onClick={handleClickMonth}>Test</button>            
+              <span className="mx-1">{yearInSelector}</span>    
+              <button onClick={handleNextYear}>Right</button>                     
+              {/* <button onClick={handleClickMonth}>Test</button>             */}
             </div>
-            <div className="flex flex-wrap">
+            
+            <div className="flex flex-wrap justify-around ml-1">
               {monthRows}
             </div>
-            <div>
+            <div className="my-1">
               Today is ...
             </div>
         </div>

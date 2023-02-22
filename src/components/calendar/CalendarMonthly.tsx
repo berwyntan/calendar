@@ -93,11 +93,17 @@ const CalendarMonthly = () => {
     
     // arrange dates
     const rowsRender = rowsArray.map((row, i) => {
+        
+        // height of daybox of there are 5 rows
+        let ht = "h-32"
+        // height of daybox of there are 6 rows
+        if (rowsArray.length > 5) ht = "h-28"
+
         return (
             <div className="flex" key={i}>
                 {
                     row.map((day, j) => {
-                        // console.log(i, j)
+                        
                         const coord = '' + i + j
                         return (
                             <DayBox 
@@ -105,6 +111,7 @@ const CalendarMonthly = () => {
                                 month={day?.currentMonth}
                                 events={day?.events}
                                 coord={coord}
+                                ht={ht}
                                 key={j}
                                 />
                         )
@@ -120,7 +127,7 @@ const CalendarMonthly = () => {
                 <div className="flex">
                     {days}
                 </div>
-                <div className="flex flex-col flex-grow justify-evenly">
+                <div className="flex flex-col flex-grow">
                     {rowsRender}
                 </div>
 

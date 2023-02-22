@@ -1,15 +1,17 @@
 import { bookingsType } from "../../constants/types"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import selectedBox from "../../constants/selectedBox"
+import moreBox from "../../constants/moreBox"
 
 export interface DayBoxProps {
     day: number | undefined
     month: boolean | undefined
     events: bookingsType[] | undefined
     coord: string | undefined
+    ht: string
 }
 
-const DayBox = ({ day, month, events, coord }: DayBoxProps) => {
+const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
     // console.log(coord)
     const [hidden, setHidden] = useState(true)
     // selected event that is clicked by user
@@ -26,6 +28,7 @@ const DayBox = ({ day, month, events, coord }: DayBoxProps) => {
     }
     // full list of events of the day that is clicked by user by clicking "more..."
     const [showFull, setShowFull] = useState(false)
+    const [fullClass, setFullClass] = useState<string | undefined>()
 
     // sort events by chrono order
     const eventSorted = events?.sort((a, b) => {
@@ -40,22 +43,24 @@ const DayBox = ({ day, month, events, coord }: DayBoxProps) => {
         return 0
     })
     
-    // events in a given day - render up to 4 only
+    // events in a given day - render up to 3 only
     const eventCards = eventSorted?.map((ev, i) => {
         
-        if (i < 4) {
+        if (i < 3) {
             return (
                 <div className="relative" key={ev.uuid}>
-                    <div className="text-xs truncate cursor-pointer"
+                    <div className="text-xs truncate cursor-pointer my-1"
                         onClick={() => showSelected(ev, coord)}>
                         {`${ev.start_time.slice(0, 5)} ${ev.name}`}
                     </div>
                 </div>
             )
-        } else if (i === 4 && eventSorted.length > 4) {
+        } else if (i === 3) {
             return (
-                <div className="text-sm cursor-pointer"
-                    onClick={()=>setShowFull(true)}>more...</div>
+                <div className="text-xs cursor-pointer"
+                    onClick={ ()=> {
+                        setShowFull(true)
+                    } }>more...</div>
             )
         }        
     })
@@ -73,9 +78,52 @@ const DayBox = ({ day, month, events, coord }: DayBoxProps) => {
         )        
     })
 
+    // listener to close full day events on click outside element
+    useEffect(() => {
+        const closeBox = (e: MouseEvent) => {
+            const container = document.getElementById(`${coord}full`)
+            
+            // @ts-expect-error
+            if (!container?.contains(e?.target)) {                
+                container?.classList.add('hidden');
+            }
+        }
+
+        document.addEventListener('mouseup', closeBox);
+    
+        return () => {
+            document.removeEventListener('mouseup', closeBox)
+        }
+    }, [showFull])
+    
+    // listener to close selected event on click outside element
+    useEffect(() => {
+        const closeBox = (e: MouseEvent) => {
+            // @ts-expect-error
+            const container = document.getElementById(selected?.uuid)
+            
+            // @ts-expect-error
+            if (!container?.contains(e?.target)) {                
+                container?.classList.add('hidden');
+            }
+        }
+
+        document.addEventListener('mouseup', closeBox);
+    
+        return () => {
+            document.removeEventListener('mouseup', closeBox)
+        }
+    }, [selected])
+
+    useEffect(() => {
+        // cannot pass undefined as argument
+        // @ts-ignore
+        setFullClass(moreBox[coord])   
+    }, [showFull])
+
     return (
         <>
-            <div className={`flex flex-col flex-grow w-16 h-32 p-1 ${month && `font-bold`} border border-black`}>
+            <div className={`flex flex-col flex-grow w-16 ${ht} p-1 ${month && `font-bold`} border border-black`}>
                 {day}
                 <div className="bg-white text-black mr-5 rounded relative">
                         {eventCards}  
@@ -100,8 +148,8 @@ const DayBox = ({ day, month, events, coord }: DayBoxProps) => {
                         </span>
                         {/* to show all events if not enough space */}
                         <span className={`card w-44 bg-base-100 shadow-xl z-50 absolute p-2 ${showFull || `hidden`}
-                            -top-32`}
-                        id={`${day}${month}full`}>
+                            -top-20 ${fullClass}`}
+                        id={`${coord}full`}>
                         <span className="card-body p-1 w-40">
                             <span className="card-actions justify-end items-center">
                             <p>{day}</p>
