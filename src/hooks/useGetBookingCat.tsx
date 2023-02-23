@@ -1,5 +1,7 @@
 import useCalendarStore from "../store/useCalendarStore"
 import { statusType, roomType } from "../constants/types"
+import colors from "../constants/colorsRoom"
+import colorsStatus from "../constants/colorsStatus"
 
 const useGetBookingCat = () => {
 
@@ -22,16 +24,19 @@ const useGetBookingCat = () => {
             }
         }
         const status: statusType[] = []
+        
         for (const item of statusSet) {
             if (item !== 'CANCELLED') {
                 status.push({
                     name: item,
-                    visible: true
+                    visible: true,
+                    color: colorsStatus.confirmed
                 })
             } else {
                 status.push({
                     name: item,
-                    visible: false
+                    visible: false,
+                    color: colorsStatus.cancelled
                 })
             }
         }
@@ -52,11 +57,14 @@ const useGetBookingCat = () => {
             }
         }
         const room: roomType[] = []
+        let count = 0
         for (const item of roomSet) {
             room.push({
                 name: item,
-                visible: true
+                visible: true,
+                color: colors[count]
             })
+            count++
         }
         return { room }
     }

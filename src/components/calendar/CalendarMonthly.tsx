@@ -124,7 +124,7 @@ const CalendarMonthly = () => {
     return (
         <>
             <div className="flex flex-col flex-grow p-2">
-                <div className="flex">
+                <div className="flex font-medium">
                     {days}
                 </div>
                 <div className="flex flex-col flex-grow">

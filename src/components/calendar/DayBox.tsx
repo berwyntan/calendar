@@ -2,6 +2,7 @@ import { bookingsType } from "../../constants/types"
 import { useState, useEffect } from "react"
 import selectedBox from "../../constants/selectedBox"
 import moreBox from "../../constants/moreBox"
+import useCalendarStore from "../../store/useCalendarStore"
 
 export interface DayBoxProps {
     day: number | undefined
@@ -43,12 +44,28 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
         return 0
     })
     
+    const room = useCalendarStore((state) => state.room)
+    const status = useCalendarStore((state) => state.status)
     // events in a given day - render up to 3 only
     const eventCards = eventSorted?.map((ev, i) => {
+        // get color based on room
+        let col = ""
+        for (const r of room) {
+            if (r.name === ev.type) {
+                col = r.color
+            }
+        }
+        let sta = ""
+        for (const s of status) {
+            if (s.name === ev.status) {
+                sta = s.color
+            }
+        }
         
+
         if (i < 3) {
             return (
-                <div className="relative" key={ev.uuid}>
+                <div className={`relative ${col} ${sta}`} key={ev.uuid}>
                     <div className="text-xs truncate cursor-pointer my-1"
                         onClick={() => showSelected(ev, coord)}>
                         {`${ev.start_time.slice(0, 5)} ${ev.name}`}
@@ -57,7 +74,7 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
             )
         } else if (i === 3) {
             return (
-                <div className="text-xs cursor-pointer"
+                <div className="text-xs cursor-pointer bg-gray-100 bg-opacity-50"
                     onClick={ ()=> {
                         setShowFull(true)
                     } }>more...</div>
@@ -67,9 +84,15 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
 
     // events in a given day - render all
     const eventCardsFull = eventSorted?.map((ev, i) => {
-                
+        // get color based on room
+        let col = ""
+        for (const r of room) {
+            if (r.name === ev.type) {
+                col = r.color
+            }
+        }
         return (
-            <div className="relative w-36" key={ev.uuid}>
+            <div className={`relative w-36 ${col} mb-1`} key={ev.uuid}>
                 <div className="text-xs truncate cursor-pointer"
                     onClick={() => showSelected(ev, coord)}>
                     {`${ev.start_time.slice(0, 5)} ${ev.name}`}
@@ -123,12 +146,12 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
 
     return (
         <>
-            <div className={`flex flex-col flex-grow w-16 ${ht} p-1 ${month && `font-bold`} border border-black`}>
-                {day}
-                <div className="bg-white text-black mr-5 rounded relative">
+            <div className={`flex flex-col flex-grow w-16 ${ht} p-1 ${month && `bg-gray-100 bg-opacity-50 font-medium`} border border-black`}>
+                <span className="text-lg">{day}</span>
+                <div className="bg-gray-100 bg-opacity-50 text-black mr-1 rounded relative">
                         {eventCards}  
                         {/* selected event */}
-                      <span className={`card w-96 bg-base-100 shadow-xl z-50 absolute p-2 ${hidden && `hidden`} ${selectedClass}`}
+                      <span className={`card w-96 bg-gray-300 shadow-xl z-50 absolute p-5 ${hidden && `hidden`} ${selectedClass}`}
                         id={selected?.uuid}>
                         <span className="card-body">
                             <span className="card-actions justify-end items-center">
@@ -147,12 +170,12 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
                         <p>User: {selected?.user_uuid}</p>
                         </span>
                         {/* to show all events if not enough space */}
-                        <span className={`card w-44 bg-base-100 shadow-xl z-50 absolute p-2 ${showFull || `hidden`}
+                        <span className={`card w-44 bg-blue-50 shadow-xl z-50 absolute p-2 ${showFull || `hidden`}
                             -top-20 ${fullClass}`}
                         id={`${coord}full`}>
                         <span className="card-body p-1 w-40">
                             <span className="card-actions justify-end items-center">
-                            <p>{day}</p>
+                            <p className="text-xl font-medium mx-3">{day}</p>
                             <button className="btn btn-square btn-xs" onClick={() => setShowFull(prev => !prev)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                             </button>

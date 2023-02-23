@@ -14,7 +14,8 @@ const EventsList = () => {
       if (stat.name === name) {
         updateStatus.push({
           name: stat.name,
-          visible: !stat.visible
+          visible: !stat.visible,
+          color: stat.color
         })
       } else updateStatus.push(stat)
     }
@@ -34,7 +35,7 @@ const EventsList = () => {
     }
     return (
       <div key={cat.name}>
-      <div>
+      <div className={cat.color}>
         {cat.name}
       </div>
       <input type="checkbox" checked={check} 
@@ -49,7 +50,8 @@ const EventsList = () => {
       if (r.name === name) {
         updateRoom.push({
           name: r.name,
-          visible: !r.visible
+          visible: !r.visible,
+          color: r.color
         })
       } else updateRoom.push(r)
     }
@@ -69,7 +71,7 @@ const EventsList = () => {
     }
     return (
       <div key={cat.name}>
-      <div>
+      <div className={cat.color}>
         {cat.name}
       </div>
       <input type="checkbox" checked={check} 
@@ -80,11 +82,11 @@ const EventsList = () => {
 
   return (
     <>
-      <div className="my-2 ml-4 text-lg">Calendars</div>
+      <div className="my-2 mt-5 ml-4 text-lg font-medium">Calendars</div>
       <div className="flex flex-col ml-2">
-        <span>Status</span>
+        <span className="font-medium my-1 ml-2">Status</span>
         {statusCards}
-        <span>Type</span>
+        <span className="font-medium my-1 ml-2">Type</span>
         {roomCards}
       </div>
     </>

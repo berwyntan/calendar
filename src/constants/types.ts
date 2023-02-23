@@ -13,9 +13,11 @@ export interface bookingsType {
 export interface statusType {
   name: string
   visible: boolean
+  color: string
 }
 
 export interface roomType {
   name: string
   visible: boolean
+  color: string
 }
