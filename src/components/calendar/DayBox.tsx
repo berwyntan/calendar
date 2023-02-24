@@ -102,7 +102,7 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
       // render "more..." if more than 3 events
       return (
         <div
-          className="cursor-pointer bg-gray-100 bg-opacity-50 text-xs"
+          className="ml-2 cursor-pointer bg-gray-100 bg-opacity-30 text-xs"
           onClick={() => {
             setShowFull(true);
           }}
@@ -122,6 +122,13 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
         col = r.color;
       }
     }
+    // get font style based on status
+    let sta = "";
+    for (const s of status) {
+      if (s.name === ev.status) {
+        sta = s.color;
+      }
+    }
     // get border color based on brand
     let brd = "";
     for (const b of brand) {
@@ -132,7 +139,10 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
       }
     }
     return (
-      <div className={`relative w-36 rounded ${col} ${brd} mb-1`} key={ev.uuid}>
+      <div
+        className={`relative w-36 rounded xl:w-44 ${col} ${brd} ${sta} my-1`}
+        key={ev.uuid}
+      >
         <div
           className="cursor-pointer truncate text-xs"
           onClick={() => showSelected(ev, coord)}
@@ -193,8 +203,8 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
           month && `bg-gray-100 bg-opacity-30 font-normal`
         } border border-black`}
       >
-        <span className="text-lg">{day}</span>
-        <div className="relative mr-1 rounded bg-gray-100 bg-opacity-50 text-black">
+        <span className="ml-2 text-lg">{day}</span>
+        <div className="relative mr-1 rounded bg-gray-100 bg-opacity-30 text-black">
           {eventCards}
           {/* selected event */}
           <span
@@ -256,13 +266,13 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
 
           {/* to show all events if not enough space */}
           <span
-            className={`card absolute z-50 w-44 bg-blue-50 p-2 shadow-xl ${
+            className={`card absolute z-50 w-44 border-2 bg-gray-100 p-2 shadow-xl xl:w-52 ${
               showFull || `hidden`
             }
                             -top-20 ${fullClass}`}
             id={`${coord}full`}
           >
-            <span className="card-body w-40 p-1">
+            <span className="card-body w-40 p-1 xl:w-48">
               <span className="card-actions items-center justify-end">
                 <p className="mx-3 text-xl font-medium">{day}</p>
                 <button
@@ -285,7 +295,9 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
                   </svg>
                 </button>
               </span>
-              <span className="flex w-36 flex-col">{eventCardsFull}</span>
+              <span className="flex w-36 flex-col xl:w-44">
+                {eventCardsFull}
+              </span>
             </span>
           </span>
         </div>

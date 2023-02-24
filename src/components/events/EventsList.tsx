@@ -140,7 +140,7 @@ const EventsList = () => {
 
   return (
     <>
-      <div className="my-2 mt-5 ml-4 text-lg font-medium">Calendars</div>
+      <div className="my-2 mt-6 ml-4 text-lg font-medium">Calendars</div>
       <div className="ml-2 flex flex-col">
         <span className="my-1 ml-2 font-medium">Status</span>
         {statusCards}

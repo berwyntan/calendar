@@ -50,22 +50,22 @@ const MonthSelector = () => {
 
   return (
     <>
-      <div className="mt-5 flex w-36 flex-col items-center">
+      <div className="mx-auto mt-5 flex w-36 flex-col items-center border-2 border-gray-400">
         <div className="flex items-center p-1">
           {/* <span className="mx-1">{monthNameShort[month]}</span> */}
-          <button onClick={handlePrevYear} className="mr-2 text-xl font-bold">
+          <button onClick={handlePrevYear} className="mr-4 text-xl font-bold">
             &#60;
           </button>
           <span className="mx-1">{yearInSelector}</span>
-          <button onClick={handleNextYear} className="ml-2 text-xl font-bold">
+          <button onClick={handleNextYear} className="ml-4 text-xl font-bold">
             &#62;
           </button>
-          {/* <button onClick={handleClickMonth}>Test</button>             */}
         </div>
-
-        <div className="ml-1 flex flex-wrap justify-around">{monthRows}</div>
-        <div className="my-1 mx-3">Today is</div>
-        <div className="mx-3">{dayjs().format("DD MMM YYYY")}</div>
+        <div className="flex flex-wrap justify-around border-t-2 border-gray-400 ">
+          {monthRows}
+        </div>
+        <div className="my-1 mx-3 italic">Today is</div>
+        <div className="mx-3 font-medium">{dayjs().format("DD MMM YYYY")}</div>
       </div>
     </>
   );
