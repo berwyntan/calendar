@@ -23,9 +23,16 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
         // console.log(coord)
         setHidden(prev => !prev)
         setSelected(ev)
+        // get color based on room
+        let col = ""
+        for (const r of room) {
+            if (r.name === ev.type) {
+                col = r.color
+            }
+        }
         // cannot pass undefined as argument
         // @ts-ignore
-        setSelectedClass(selectedBox[coord])
+        setSelectedClass(`${selectedBox[coord]} ${col}`)
     }
     // full list of events of the day that is clicked by user by clicking "more..."
     const [showFull, setShowFull] = useState(false)
@@ -151,7 +158,7 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
                 <div className="bg-gray-100 bg-opacity-50 text-black mr-1 rounded relative">
                         {eventCards}  
                         {/* selected event */}
-                      <span className={`card w-96 bg-gray-300 shadow-xl z-50 absolute p-5 ${hidden && `hidden`} ${selectedClass}`}
+                      <span className={`card w-96 bg-gray-300 shadow-xl z-50 absolute p-5 ${hidden && `hidden`} ${selectedClass} bg-opacity-90 rounded-lg`}
                         id={selected?.uuid}>
                         <span className="card-body">
                             <span className="card-actions justify-end items-center">
@@ -162,12 +169,28 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
                             </span>
                             
                         </span>
-                        <p>{selected?.date}</p>
-                        <p>Type: {selected?.type}</p>
-                        <p>Status: {selected?.status}</p>
-                        <p>{selected?.start_time} - {selected?.end_time}</p>
-                        <p>Code: {selected?.code}</p>
-                        <p>User: {selected?.user_uuid}</p>
+                        <span className="bg-gray-100 p-2 font-normal">
+                        <div>
+                            <span className="text-lg">{selected?.date} </span>
+                            <span> {selected?.start_time} - {selected?.end_time}</span>
+                        </div>
+                        <div>
+                            <span className="text-sm font-medium mt-1">Type: </span>
+                            <span>{selected?.type}</span>
+                        </div>
+                        <div>
+                            <span className="text-sm font-medium mt-1">Status: </span>
+                            <span>{selected?.status}</span>
+                        </div>
+                        <div>
+                            <span className="text-sm font-medium mt-1">Code: </span>
+                            <span>{selected?.code}</span>
+                        </div>
+                        <div>
+                            <span className="text-sm font-medium mt-1">User: </span>
+                            <span>{selected?.user_uuid}</span>
+                        </div>
+                        </span>
                         </span>
                         {/* to show all events if not enough space */}
                         <span className={`card w-44 bg-blue-50 shadow-xl z-50 absolute p-2 ${showFull || `hidden`}

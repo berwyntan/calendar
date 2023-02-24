@@ -39,11 +39,11 @@ const MonthSelector = () => {
     return (
       <>
         <div className="flex flex-col w-36 mt-5 items-center">
-            <div className="flex p-1">
+            <div className="flex p-1 items-center">
               {/* <span className="mx-1">{monthNameShort[month]}</span> */}
-              <button onClick={handlePrevYear} className="mr-2">&#60;&#60;</button>
+              <button onClick={handlePrevYear} className="mr-2 text-xl font-bold">&#60;</button>
               <span className="mx-1">{yearInSelector}</span>    
-              <button onClick={handleNextYear} className="ml-2">&#62;&#62;</button>                     
+              <button onClick={handleNextYear} className="ml-2 text-xl font-bold">&#62;</button>                     
               {/* <button onClick={handleClickMonth}>Test</button>             */}
             </div>
             

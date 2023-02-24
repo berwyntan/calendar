@@ -34,8 +34,8 @@ const EventsList = () => {
       updateStatus(name)
     }
     return (
-      <div key={cat.name}>
-      <div className={cat.color}>
+      <div className="flex justify-between mb-2" key={cat.name}>
+      <div className={`${cat.color} text-sm mr-2`}>
         {cat.name}
       </div>
       <input type="checkbox" checked={check} 
@@ -70,8 +70,8 @@ const EventsList = () => {
       updateRoom(name)
     }
     return (
-      <div key={cat.name}>
-      <div className={cat.color}>
+      <div className="" key={cat.name}>
+      <div className={`${cat.color} text-sm mr-3 my-1`}>
         {cat.name}
       </div>
       <input type="checkbox" checked={check} 

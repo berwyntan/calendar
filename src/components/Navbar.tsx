@@ -41,10 +41,10 @@ const Navbar = () => {
                 <span className="mx-1 mr-5 text-2xl font-extrabold">Calendar</span>
                 <button onClick={handleToday}
                     className="btn btn-outline btn-sm mx-4">Today</button>
-                <button className="btn btn-outline btn-sm w-20"
-                    onClick={handlePrevMonth}>Left</button>
-                <button className="btn btn-outline btn-sm w-20"
-                    onClick={handleNextMonth}>Right</button>
+                <button className="btn btn-outline btn-sm w-12 font-bold text-xl"
+                    onClick={handlePrevMonth}>&#60;</button>
+                <button className="btn btn-outline btn-sm w-12 font-bold text-xl"
+                    onClick={handleNextMonth}>&#62;</button>
                 <span className="mx-1 ml-5 text-lg font-medium">{monthName[month]}</span>
                 <span className="mx-1 text-lg font-medium">{year}</span>
             </div>
