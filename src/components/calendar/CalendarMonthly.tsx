@@ -3,6 +3,7 @@ import dayjs from "dayjs"
 import { ReactElement } from "react"
 import useCalendarStore from "../../store/useCalendarStore"
 import useFilterBookings from "../../hooks/useFilterBookings"
+import useFilters from "../../hooks/useFilters"
 import DayBox from "./DayBox"
 
 
@@ -16,6 +17,7 @@ const CalendarMonthly = () => {
     
     const { filterByCurrentMonth, filterByNextMonth, filterByPrevMonth, filterByDay,
         filterByStatus, filterByRoom } = useFilterBookings()
+    const { filterBookings } = useFilters()
 
     // render Monday to Sunday
     const days: ReactElement[] = dayOfWeek.map((day) => {
@@ -45,12 +47,14 @@ const CalendarMonthly = () => {
         const { renderInfo } = filterByNextMonth(allBookings)
         // filter bookings by day
         const { renderInfo: dayInfo } = filterByDay(renderInfo, i)
-        // filter by status
-        const { renderInfo: dayInfoV1 } = filterByStatus(dayInfo)
-        // filter by room
-        const { renderInfo: dayInfoV2 } = filterByRoom(dayInfoV1)
+        // filter by status, room & brand
+        const { filteredInfo } = filterBookings(dayInfo)
+        // // filter by status
+        // const { renderInfo: dayInfoV1 } = filterByStatus(dayInfo)
+        // // filter by room
+        // const { renderInfo: dayInfoV2 } = filterByRoom(dayInfoV1)
         // push into array
-        dateArray.push({i:i, currentMonth: false, events: dayInfoV2})
+        dateArray.push({i:i, currentMonth: false, events: filteredInfo})
     }    
     // push dates for curr month
     for (let i=daysInCurrentMonth; i>0; i--) {
@@ -58,12 +62,10 @@ const CalendarMonthly = () => {
         const { renderInfo } = filterByCurrentMonth(allBookings)
         // filter bookings by day
         const { renderInfo: dayInfo } = filterByDay(renderInfo, i)
-        // filter by status
-        const { renderInfo: dayInfoV1 } = filterByStatus(dayInfo)
-        // filter by room
-        const { renderInfo: dayInfoV2 } = filterByRoom(dayInfoV1)
+        // filter by status, room & brand
+        const { filteredInfo } = filterBookings(dayInfo)
         // push into array
-        dateArray.push({i: i, currentMonth: true, events: dayInfoV2})
+        dateArray.push({i: i, currentMonth: true, events: filteredInfo})
     }
     // push dates for prev month
     for (let i=firstDayOfWeekMonth; i>0; i--) {
@@ -72,12 +74,14 @@ const CalendarMonthly = () => {
         // filter bookings by day
         const d = daysInPrevMonth-firstDayOfWeekMonth+i
         const { renderInfo: dayInfo } = filterByDay(renderInfo, d)
-        // filter by status
-        const { renderInfo: dayInfoV1 } = filterByStatus(dayInfo)
-        // filter by room
-        const { renderInfo: dayInfoV2 } = filterByRoom(dayInfoV1)
+        // filter by status, room & brand
+        const { filteredInfo } = filterBookings(dayInfo)
+        // // filter by status
+        // const { renderInfo: dayInfoV1 } = filterByStatus(dayInfo)
+        // // filter by room
+        // const { renderInfo: dayInfoV2 } = filterByRoom(dayInfoV1)
         // push into array
-        dateArray.push({i: d, currentMonth: false, events: dayInfoV2})        
+        dateArray.push({i: d, currentMonth: false, events: filteredInfo})        
     }
     // console.log(dateArray)
     // rows to render - 1 row per week based on calendar

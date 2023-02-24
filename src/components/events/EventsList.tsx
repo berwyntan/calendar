@@ -1,6 +1,6 @@
 import useCalendarStore from "../../store/useCalendarStore"
 import { useState } from "react"
-import { statusType, roomType } from "../../constants/types"
+import { statusType, roomType, brandType } from "../../constants/types"
 
 const EventsList = () => {
   const status = useCalendarStore((state) => state.status)
@@ -43,7 +43,7 @@ const EventsList = () => {
         {cat.name}
       </div>
       <input type="checkbox" checked={check} 
-        className="checkbox" onChange={() => handleCheck(cat.name)}/>
+        className="checkbox checkbox-xs" onChange={() => handleCheck(cat.name)}/>
       </div>
     )
   })
@@ -81,28 +81,28 @@ const EventsList = () => {
         {cat.name}
       </div>
       <input type="checkbox" checked={check} 
-        className="checkbox" onChange={() => handleCheck(cat.name)}/>
+        className="checkbox checkbox-xs" onChange={() => handleCheck(cat.name)}/>
       </div>
     )
   })
 
   // handle checkbox of brands
   const updateBrand = (name: string) => {
-    const updateRoom: roomType[] = []
-    for (const r of room) {
-      if (r.name === name) {
-        updateRoom.push({
-          name: r.name,
-          visible: !r.visible,
-          color: r.color
+    const updateBrand: brandType[] = []
+    for (const b of brand) {
+      if (b.name === name) {
+        updateBrand.push({
+          name: b.name,
+          visible: !b.visible,
+          color: b.color
         })
-      } else updateRoom.push(r)
+      } else updateBrand.push(b)
     }
-    setRoom(updateRoom)
+    setBrand(updateBrand)
   }
 
   // brand components
-  const brandCards = room.map(cat => {
+  const brandCards = brand.map(cat => {
     const [ check, setCheck ] = useState(cat.visible)
     const handleCheck = (name: string) => {
       if (!check) {
@@ -111,15 +111,15 @@ const EventsList = () => {
         // console.log('uncheck', name)
       }
       setCheck(prev => !prev)
-      updateRoom(name)
+      updateBrand(name)
     }
     return (
       <div className="" key={cat.name}>
-      <div className={`${cat.color} text-sm mr-3 my-1`}>
+      <div className={`${cat.color} text-sm mr-3 my-1 text-center`}>
         {cat.name}
       </div>
       <input type="checkbox" checked={check} 
-        className="checkbox" onChange={() => handleCheck(cat.name)}/>
+        className="checkbox checkbox-xs" onChange={() => handleCheck(cat.name)}/>
       </div>
     )
   })
@@ -132,6 +132,8 @@ const EventsList = () => {
         {statusCards}
         <span className="font-medium my-1 ml-2">Type</span>
         {roomCards}
+        <span className="font-medium my-1 ml-2">Brand</span>
+        {brandCards}
       </div>
     </>
     
