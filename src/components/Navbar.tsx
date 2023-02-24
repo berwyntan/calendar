@@ -40,10 +40,10 @@ const Navbar = () => {
             <div className="flex items-center p-3">
                 <span className="mx-1 mr-5 text-2xl font-extrabold">Calendar</span>
                 <button onClick={handleToday}
-                    className="btn btn-outline btn-sm mx-4">Today</button>
-                <button className="btn btn-outline btn-sm w-12 font-bold text-xl"
+                    className="btn btn-outline btn-sm mx-4 rounded-md">Today</button>
+                <button className="btn btn-outline btn-sm w-12 font-bold text-xl rounded-l-md"
                     onClick={handlePrevMonth}>&#60;</button>
-                <button className="btn btn-outline btn-sm w-12 font-bold text-xl"
+                <button className="btn btn-outline btn-sm w-12 font-bold text-xl rounded-r-md"
                     onClick={handleNextMonth}>&#62;</button>
                 <span className="mx-1 ml-5 text-lg font-medium">{monthName[month]}</span>
                 <span className="mx-1 text-lg font-medium">{year}</span>

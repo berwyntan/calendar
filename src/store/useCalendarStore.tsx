@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import dayjs from "dayjs"
-import { bookingsType, statusType, roomType } from '../constants/types'
+import { bookingsType, statusType, roomType, brandType } from '../constants/types'
 
 interface CalendarState {
   month: number
@@ -19,6 +19,8 @@ interface CalendarState {
   setStatus: (data: statusType[]) => void
   room: roomType[]
   setRoom: (data: roomType[]) => void
+  brand: brandType[]
+  setBrand: (data: brandType[]) => void
 }
 
 const useCalendarStore = create<CalendarState>()(
@@ -42,6 +44,8 @@ const useCalendarStore = create<CalendarState>()(
         setStatus: (data) => set({ status: data }),
         room: [],
         setRoom: (data) => set({ room: data }),
+        brand: [],
+        setBrand: (data) => set({ brand: data }),
         })    
     )
 )

@@ -21,3 +21,9 @@ export interface roomType {
   visible: boolean
   color: string
 }
+
+export interface brandType {
+  name: string
+  visible: boolean
+  color: string
+}

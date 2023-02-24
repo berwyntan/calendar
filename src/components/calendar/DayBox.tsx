@@ -53,6 +53,7 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
     
     const room = useCalendarStore((state) => state.room)
     const status = useCalendarStore((state) => state.status)
+    const brand = useCalendarStore((state) => state.brand)
     // events in a given day - render up to 3 only
     const eventCards = eventSorted?.map((ev, i) => {
         // get color based on room
@@ -62,18 +63,27 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
                 col = r.color
             }
         }
+        // get font style based on status
         let sta = ""
         for (const s of status) {
             if (s.name === ev.status) {
                 sta = s.color
             }
         }
-        
+        // get border color based on brand
+        let brd = ""
+        for (const b of brand) {
+            const codeArr = ev.code.split('_')
+            const brand = codeArr[1] + " " + codeArr[2]
+            if (b.name === brand) {
+                brd = b.color
+            }
+        }        
 
         if (i < 3) {
             return (
-                <div className={`relative ${col} ${sta}`} key={ev.uuid}>
-                    <div className="text-xs truncate cursor-pointer my-1"
+                <div className={`relative ${col} ${sta} ${brd}`} key={ev.uuid}>
+                    <div className="text-xs truncate cursor-pointer my-1 ml-2"
                         onClick={() => showSelected(ev, coord)}>
                         {`${ev.start_time.slice(0, 5)} ${ev.name}`}
                     </div>
@@ -153,7 +163,7 @@ const DayBox = ({ day, month, events, coord, ht }: DayBoxProps) => {
 
     return (
         <>
-            <div className={`flex flex-col flex-grow w-16 ${ht} p-1 ${month && `bg-gray-100 bg-opacity-50 font-medium`} border border-black`}>
+            <div className={`flex flex-col flex-grow w-16 ${ht} p-1 ${month && `bg-gray-100 bg-opacity-30 font-normal`} border border-black`}>
                 <span className="text-lg">{day}</span>
                 <div className="bg-gray-100 bg-opacity-50 text-black mr-1 rounded relative">
                         {eventCards}  

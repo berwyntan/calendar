@@ -1,7 +1,7 @@
 type name = string;
 
 export const dayOfWeek: name[] = [
-    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+    "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
 ]
 
 export const monthName: name[] = [

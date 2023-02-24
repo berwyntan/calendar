@@ -7,7 +7,10 @@ const EventsList = () => {
   const setStatus = useCalendarStore((state) => state.setStatus)
   const room = useCalendarStore((state) => state.room)
   const setRoom = useCalendarStore((state) => state.setRoom)
+  const brand = useCalendarStore((state) => state.brand)
+  const setBrand = useCalendarStore((state) => state.setBrand)
 
+  // handle checkbox of status
   const updateStatus = (name: string) => {
     const updateStatus: statusType[] = []
     for (const stat of status) {
@@ -22,6 +25,7 @@ const EventsList = () => {
     setStatus(updateStatus)
   }
   
+  // status components
   const statusCards = status.map(cat => {
     const [ check, setCheck ] = useState(cat.visible)
     const handleCheck = (name: string) => {
@@ -44,6 +48,7 @@ const EventsList = () => {
     )
   })
 
+  // handle checkbox of rooms
   const updateRoom = (name: string) => {
     const updateRoom: roomType[] = []
     for (const r of room) {
@@ -58,7 +63,46 @@ const EventsList = () => {
     setRoom(updateRoom)
   }
 
+  // room components
   const roomCards = room.map(cat => {
+    const [ check, setCheck ] = useState(cat.visible)
+    const handleCheck = (name: string) => {
+      if (!check) {
+        // console.log('check', name)
+      } else {
+        // console.log('uncheck', name)
+      }
+      setCheck(prev => !prev)
+      updateRoom(name)
+    }
+    return (
+      <div className="" key={cat.name}>
+      <div className={`${cat.color} text-sm mr-3 my-1`}>
+        {cat.name}
+      </div>
+      <input type="checkbox" checked={check} 
+        className="checkbox" onChange={() => handleCheck(cat.name)}/>
+      </div>
+    )
+  })
+
+  // handle checkbox of brands
+  const updateBrand = (name: string) => {
+    const updateRoom: roomType[] = []
+    for (const r of room) {
+      if (r.name === name) {
+        updateRoom.push({
+          name: r.name,
+          visible: !r.visible,
+          color: r.color
+        })
+      } else updateRoom.push(r)
+    }
+    setRoom(updateRoom)
+  }
+
+  // brand components
+  const brandCards = room.map(cat => {
     const [ check, setCheck ] = useState(cat.visible)
     const handleCheck = (name: string) => {
       if (!check) {

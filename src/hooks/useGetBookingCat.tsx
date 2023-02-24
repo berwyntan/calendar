@@ -1,7 +1,8 @@
 import useCalendarStore from "../store/useCalendarStore"
-import { statusType, roomType } from "../constants/types"
+import { statusType, roomType, brandType } from "../constants/types"
 import colors from "../constants/colorsRoom"
 import colorsStatus from "../constants/colorsStatus"
+import colorsBrand from "../constants/colorsBrand"
 
 const useGetBookingCat = () => {
 
@@ -69,9 +70,37 @@ const useGetBookingCat = () => {
         return { room }
     }
 
-    // brand (only brand needs to hardcode the brand names COLAB & ITCD)
+    // brand
+    const getBrandCat = () => {
+        const brandSet: Set<string> = new Set()
+        for (const booking of confirmedBookings) {
+            const codeArr = booking.code.split('_')
+            const brand = codeArr[1] + " " + codeArr[2]
+            if (!brandSet.has(brand)) {
+                brandSet.add(brand)
+            }
+        }
+        for (const booking of cancelledBookings) {
+            const codeArr = booking.code.split('_')
+            const brand = codeArr[1] + " " + codeArr[2]
+            if (!brandSet.has(brand)) {
+                brandSet.add(brand)
+            }
+        }
+        const brand: brandType[] = []
+        let count = 0
+        for (const item of brandSet) {
+            brand.push({
+                name: item,
+                visible: true,
+                color: colorsBrand[count]
+            })
+            count++
+        }
+        return { brand }
+    }
     
-    return { getStatusCat, getRoomCat }
+    return { getStatusCat, getRoomCat, getBrandCat }
     
 }
 
