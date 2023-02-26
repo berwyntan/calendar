@@ -1,3 +1,5 @@
+// tailwind styles for box showing all events in a day, based on the box coordinates
+
 const moreBox = {
   "00": "-right-1",
   "01": "-right-1",

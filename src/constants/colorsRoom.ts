@@ -1,3 +1,5 @@
+// tailwind styles for room (meeting, conference) DOM elements
+
 const colors = [
   "bg-red-100",
   "bg-yellow-100",

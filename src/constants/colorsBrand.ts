@@ -1,3 +1,5 @@
+// tailwind styles for brand (Colab, ITCD) DOM elements
+
 const colorsBrand = [
   "border border-t-0 border-b-0 border-l-0 border-r-8 border-indigo-600",
   "border border-t-0 border-b-0 border-l-0 border-r-8 border-pink-600",

@@ -1,3 +1,5 @@
+// tailwind styles for box showing selected event, based on the box coordinates
+
 const selectedBox = {
   "00": "left-18 md:left-20 lg:left-36 xl:left-48 -top-5",
   "01": "left-18 md:left-20 lg:left-36 xl:left-48 -top-5",
